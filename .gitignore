@@ -1,0 +1,22 @@
+# Project-specific ignores
+node_modules/
+build/
+dist/
+out/
+
+# IDE-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Log files
+*.log
+*.tmp
+
+# OS-specific
+.DS_Store
+
+# .venv files
+.virtualenvs/
+.venv/
