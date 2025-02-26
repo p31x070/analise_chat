@@ -2,9 +2,11 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib
+import datetime # Importar datetime
+
 
 # 1. Carregar o DataFrame df_interacoes_ponderadas do arquivo CSV
-df_interacoes_ponderadas = pd.read_csv('df_interacoes_ponderadas_grupo.csv') # Carrega do CSV ponderado
+df_interacoes_ponderadas = pd.read_csv('df_interacoes_ponderadas_temporal_grupo.csv') # Carrega do CSV ponderado temporal
 
 # 2. Construir o Grafo Ponderado
 grafo_ponderado_grupo = nx.Graph() # Grafo não direcionado
@@ -20,15 +22,21 @@ for index, row in df_interacoes_ponderadas.iterrows():
 centralidade_grau_ponderada = nx.degree_centrality(grafo_ponderado_grupo)
 
 # 4. Visualizar a Rede Ponderada com Estilo Personalizado
-fig, ax1 = plt.subplots(figsize=(14, 10), facecolor='darkgreen') # Line 23: Correção - Separated statements
-pos = nx.spring_layout(grafo_ponderado_grupo, k=0.3, iterations=50) # Line 24: Correção - On a new line
+fig, ax1 = plt.subplots(figsize=(14, 10), facecolor='darkgreen') # Definir facecolor na criação da figura
+fig.patch.set_facecolor('darkgreen') # **Adicionado**: Definir facecolor diretamente no patch da figura
+
+ax = fig.add_subplot(111) # Adicionar subplot ao invés de plt.subplots (mais controle sobre a figura base)
+ax.set_facecolor('darkgreen') # Definir cor de fundo dos eixos (subplot) - Manter esta linha
+
+pos = nx.spring_layout(grafo_ponderado_grupo, k=0.3, iterations=50)
 edges = grafo_ponderado_grupo.edges(data=True) # Obter arestas com dados (pesos)
 weights = [edge_data['weight'] for _, _, edge_data in edges] # Extrair pesos para espessura das arestas
 
 nx.draw(grafo_ponderado_grupo, pos,
+        ax=ax, # Especificar explicitamente os eixos 'ax' para nx.draw
         with_labels=True,
         node_size=[v * 8000 for v in centralidade_grau_ponderada.values()],
-        node_color='blue', # Define nodos verde claro
+        node_color='lightgreen', # Define nodos verde claro
         edge_color='lightgray', # Cor das arestas alterada para cinza claro para melhor contraste
         width=weights, # Usar pesos para espessura das arestas
         alpha=0.7,
@@ -39,21 +47,22 @@ nx.draw(grafo_ponderado_grupo, pos,
 plt.title('Rede de Interação Ponderada entre Membros do Grupo', fontsize=16, color='black') # Título em branco
 plt.xlabel('Membros (Nós)', fontsize=12, color='black') # Rótulo do eixo X em branco
 plt.ylabel('Interações Ponderadas (Arestas)', fontsize=12, color='black')
-ax = plt.gca() # Obtenha os eixos atuais corretamente
-ax.set_facecolor('darkgreen') # Cor de fundo do subplot (opcional, caso necessário)
 
 
 # Ajustar cor dos ticks dos eixos para branco para contraste com fundo escuro
-ax = plt.gca()
-ax.tick_params(axis='x', colors='white')
-ax.tick_params(axis='y', colors='white')
-ax.spines['bottom'].set_color('white')
-ax.spines['top'].set_color('white')
-ax.spines['left'].set_color('white')
-ax.spines['right'].set_color('white')
+ax.tick_params(axis='x', colors='black')
+ax.tick_params(axis='y', colors='black')
+ax.spines['bottom'].set_color('black')
+ax.spines['top'].set_color('black')
+ax.spines['left'].set_color('black')
+ax.spines['right'].set_color('black')
 
 
-plt.savefig('network_graph_interacao_ponderada_grupo_verde.png', facecolor=fig.get_facecolor()) # Salvar imagem com fundo verde escuro
+# **Gerar Timestamp para o nome do arquivo**
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f'{timestamp}_network_graph_interacao_ponderada_grupo_verde.png' # Nome do arquivo com timestamp
+plt.savefig(filename, facecolor=fig.get_facecolor()) # Salvar imagem com fundo verde escuro e timestamp
+
 plt.show()
 
 # 5. Imprimir Resultados da Centralidade de Grau Ponderada (Ordenada) - (sem alterações)

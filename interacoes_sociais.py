@@ -41,8 +41,8 @@ interacoes_grupo_ponderadas = extract_weighted_interactions_from_whatsapp_log(ch
 if interacoes_grupo_ponderadas:
     df_interacoes_ponderadas = pd.DataFrame(interacoes_grupo_ponderadas)
     print("DataFrame df_interacoes_ponderadas gerado com sucesso.")
-    df_interacoes_ponderadas.to_csv('df_interacoes_ponderadas_grupo.csv', index=False) # Salva df_interacoes_ponderadas para CSV
-    print("DataFrame df_interacoes_ponderadas salvo em 'df_interacoes_ponderadas_grupo.csv'")
+    df_interacoes_ponderadas.to_csv('df_interacoes_ponderadas_temporal_grupo.csv', index=False) # Salva df_interacoes_ponderadas para um NOVO arquivo CSV
+    print("DataFrame df_interacoes_ponderadas salvo em 'df_interacoes_ponderadas_temporal_grupo.csv'")
 
     # Exemplo de Contagem de interações ponderadas (opcional)
     contagem_interacoes_ponderadas = df_interacoes_ponderadas.groupby(['Responder', 'Respondido_por'])['Peso'].sum().reset_index(name='Peso')

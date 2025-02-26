@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from textblob import TextBlob
+import datetime # Importar datetime
 
 # 1. Carregar o DataFrame df_mensagens do arquivo CSV
 df_sentimentos_real = pd.read_csv('chat_messages_grupo.csv') # Carrega as mensagens do arquivo CSV
@@ -28,7 +29,11 @@ plt.pie(contagem_sentimentos_real, labels=contagem_sentimentos_real.index, autop
 plt.title('Distribuição de Sentimentos nas Mensagens do Grupo', fontsize=14)
 plt.ylabel('Sentimento') # Adicionado label ao ylabel para clareza
 plt.tight_layout()
-plt.savefig('sentiment_pie_chart_real.png')
+
+# **Gerar Timestamp para o nome do arquivo**
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f'{timestamp}_sentiment_pie_chart_real_labeled.png' # Nome do arquivo com timestamp
+plt.savefig(filename)
 plt.show()
 
 print(df_sentimentos_real.head())
