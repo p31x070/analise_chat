@@ -36,7 +36,7 @@ nx.draw(grafo_ponderado_grupo, pos,
         ax=ax, # Especificar explicitamente os eixos 'ax' para nx.draw
         with_labels=True,
         node_size=[v * 8000 for v in centralidade_grau_ponderada.values()],
-        node_color='lightgreen', # Define nodos verde claro
+        node_color='darkgreen', # Define nodos verde claro
         edge_color='lightgray', # Cor das arestas alterada para cinza claro para melhor contraste
         width=weights, # Usar pesos para espessura das arestas
         alpha=0.7,
