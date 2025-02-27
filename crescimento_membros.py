@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import datetime # Importar datetime
 
 # Dados de Crescimento de Membros (Agregado Mensal) - INCLUÍDOS DIRETAMENTE NO CÓDIGO
 monthly_dates = ['2024-10-31', '2024-11-30', '2024-12-31', '2025-01-31', '2025-02-28']
@@ -23,7 +24,9 @@ plt.grid(True)
 plt.tight_layout()
 
 # Salvar o Gráfico em Arquivo PNG
-plt.savefig('member_growth_pt_standalone.png') # Salvar com novo nome para não sobrescrever outros gráficos
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f'{timestamp}_member_growth_pt_standalone.png' # Nome do arquivo com timestamp
+plt.savefig(filename) # Salvar com novo nome para não sobrescrever outros gráficos
 plt.show()
 
 print("Gráfico de crescimento de membros gerado e salvo como 'member_growth_pt_standalone.png'")
