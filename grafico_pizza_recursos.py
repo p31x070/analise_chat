@@ -36,7 +36,7 @@ if resource_counts:
     plt.title('Distribuição de Tipos de Recursos Compartilhados', fontsize=14)
     plt.tight_layout()
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f'{timestamp}resource_types.png' # Nome do arquivo com timestamp
+    filename = f'{timestamp}_resource_types.png' # Nome do arquivo com timestamp
     plt.savefig(filename) # Save pie chart to file
     plt.show()
 
